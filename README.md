@@ -16,7 +16,7 @@ https://neptune.ai/blog/image-processing-python-libraries-for-machine-learning
 
 goo python voice recognition libraries    
 
-[**realpython**](https://realpython.com/python-speech-recognition/)
+[**realpython**](https://realpython.com/python-speech-recopgnition/)
 
 - [] SpeechRecognition
 - [ ] apiai
