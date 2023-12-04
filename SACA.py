@@ -3,7 +3,7 @@ import speech_recognition as sr
 r = sr.Recognizer()
 
 harvard = sr.AudioFile('./harvard.wav')
-moha = sr.AudioFile('./moha2.wav')
+moha = sr.AudioFile('./moha.wav')
 
 with harvard as source:
     r.adjust_for_ambient_noise(source)
