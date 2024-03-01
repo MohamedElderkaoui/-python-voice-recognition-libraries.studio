@@ -5,7 +5,7 @@ r = sr.Recognizer()
 harvard = sr.AudioFile('./harvard.wav')
 moha = sr.AudioFile('./moha.wav')
 
-# Increase the duration for individuals with slower speech
+# Increase Wthe duration for individuals with slower speech
 with harvard as source:
     r.adjust_for_ambient_noise(source)
     audio1 = r.record(source, duration=60)
