@@ -1,79 +1,94 @@
-# -python-voice-recognition-libraries.studio
+### README.md - Speech Recognition with Python
 
+#### Overview
 
-goo librerias python reconocimiento de imagenes
-https://tutorialesinformatica.com/programacion/librerias-imagen-python/
+This Python script demonstrates the usage of the SpeechRecognition library to transcribe audio files using Google Speech Recognition and PocketSphinx. The script provides examples for transcribing two audio files, `harvard.wav` and `moha.wav`, using different recognition engines.
 
+#### Instructions
 
-goo python learning patterns in images
-https://neptune.ai/blog/image-processing-python-libraries-for-machine-learning
+1. **Installation**
 
-    Scipy is used for mathematical and scientific computations but can also perform 
-    multi-dimensional image processing using the submodule **scipy.ndimage**. 
-    It provides functions to operate on n-dimensional Numpy arrays 
-    and at the end of the day images are just that.
+   Ensure that you have the `speech_recognition` library installed:
+   ```bash
+   pip install SpeechRecognition
+   ```
 
+2. **Audio Files**
 
-goo python voice recognition libraries    
+   Make sure you have the audio files, `harvard.wav` and `moha.wav`, in the same directory as the script.
 
-[**realpython**](https://realpython.com/python-speech-recopgnition/)
+3. **Adjusting Duration**
 
-- [] SpeechRecognition
-- [ ] apiai
-- [ ] assemblyai
-- [ ] google-cloud-speech
-- [ ] pocketsphinx
-- [ ] watson-developer-cloud
-- [ ] wit
+   The script transcribes `harvard.wav` for up to 60 seconds and `moha.wav` for up to 10 seconds. Adjust these durations based on your audio files.
 
-Certainly! Below is a basic README.md template you can use to explain your Python script:
+4. **Running the Script**
 
----
+   Execute the script in a Python environment:
+   ```bash
+   python script_name.py
+   ```
 
-# Speech Recognition Script
+#### Code Explanation
 
-This Python script demonstrates how to transcribe audio files using the SpeechRecognition library, utilizing both Google Speech Recognition and PocketSphinx.
+```python
+import speech_recognition as sr
 
-## Requirements
+# Initialize the Recognizer
+r = sr.Recognizer()
 
-- Python 3.x
-- SpeechRecognition library (`pip install SpeechRecognition`)
+# Load audio files
+harvard = sr.AudioFile('./harvard.wav')
+moha = sr.AudioFile('./moha.wav')
 
-## Usage
+# Adjust for ambient noise and record audio
+with harvard as source:
+    r.adjust_for_ambient_noise(source)
+    audio1 = r.record(source, duration=60)
 
-1. Ensure you have Python installed on your system.
-2. Install the required dependencies using pip:
-    ```
-    pip install SpeechRecognition
-    ```
-3. Place your audio files in the same directory as the script.
-4. Run the script using Python:
-    ```
-    python speech_recognition_script.py
-    ```
+with moha as source:
+    r.adjust_for_ambient_noise(source)
+    audio2 = r.record(source, duration=10)
 
-## Functionality
+# Transcribe using Google Speech Recognition
+try:
+    transcription1 = r.recognize_google(audio1, language='en-US', show_all=True)
+    print("Transcription 1: ", transcription1)
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio 1")
+except sr.RequestError as e:
+    print("Could not request results from Google Speech Recognition service for audio 1; {0}".format(e))
 
-- The script loads audio files named `harvard.wav` and `moha.wav`.
-- It adjusts for ambient noise for both audio files.
-- Transcribes the audio files using Google Speech Recognition.
-- Demonstrates how to use PocketSphinx for transcription.
-- Includes a commented-out section for custom language models.
+# Transcribe second audio file
+try:
+    transcription2 = r.recognize_google(audio2, language='en-US', show_all=True)
+    print("Transcription 2: ", transcription2)
+except sr.UnknownValueError:
+    print("Google Speech Recognition could not understand audio 2")
+except sr.RequestError as e:
+    print("Could not request results from Google Speech Recognition service for audio 2; {0}".format(e))
 
-## Customization
+# Example using the Sphinx recognizer
+try:
+    transcription_sphinx = r.recognize_sphinx(audio1)
+    print("Sphinx Transcription: ", transcription_sphinx)
+except sr.UnknownValueError:
+    print("Sphinx could not understand audio 1")
+except sr.RequestError as e:
+    print("Could not request Sphinx results; {0}".format(e))
 
-- Adjust the duration parameter for audio files according to your requirements.
-- If you want to use custom language models, define or load them and uncomment the appropriate section in the script.
+# Customization using a user-specific language model (not a direct implementation, requires additional steps)
+# CustomModel = ...  # Load or train a custom language model
+# try:
+#     transcription_custom = r.recognize_custom(audio1, model=CustomModel)
+#     print("Custom Transcription: ", transcription_custom)
+# except CustomModelError as e:
+#     print("Error in custom recognition; {0}".format(e))
+```
 
-## Notes
+#### Notes
 
-- Ensure that you have the required audio files in the same directory as the script.
-- Be mindful of the rate limits and usage policies associated with using the Google Speech Recognition service.
+- Adjust the durations according to the length of your audio files.
+- Ensure proper dependencies for Google Speech Recognition and Sphinx.
+- Follow additional steps if using a custom language model.
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
----
-
-Feel free to modify this template according to your specific needs or add more detailed instructions if necessary.
+Feel free to reach out if you have any questions or need further assistance!
