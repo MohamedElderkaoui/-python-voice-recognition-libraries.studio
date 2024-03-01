@@ -48,3 +48,7 @@ except sr.RequestError as e:
 #     print("Custom Transcription: ", transcription_custom)
 # except CustomModelError as e:
 #     print("Error in custom recognition; {0}".format(e))
+    """_summary_
+    
+    
+    """
